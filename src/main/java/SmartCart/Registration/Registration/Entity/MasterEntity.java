@@ -15,7 +15,7 @@ public class MasterEntity {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private String ID;
+    private int id;
 
     @Column(name = "USERNAME")
 

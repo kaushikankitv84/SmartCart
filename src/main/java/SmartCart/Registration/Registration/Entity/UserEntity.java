@@ -14,7 +14,7 @@ public class UserEntity {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private String id;
+    private int id;
 
     @Column(name = "FIRST_NAME")
     private String fstName;

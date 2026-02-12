@@ -10,4 +10,6 @@ public interface MasterRepository extends JpaRepository<MasterEntity,String> {
 
     MasterEntity getMasterEntityByUsername(String name);
 
+    MasterEntity findByUsername(String username);
+
 }

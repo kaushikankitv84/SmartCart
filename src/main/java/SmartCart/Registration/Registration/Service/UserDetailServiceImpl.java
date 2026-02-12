@@ -13,15 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDetailServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private MasterRepository masterRepository;
 
     @Override
     public UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
-        MasterEntity user = masterRepository.getMasterEntityByUsername(username);
+        MasterEntity user = masterRepository.findByUsername(username);
         if (user!=null){
             return org.springframework.security.core.userdetails.User.builder()
                     .username(user.getUsername())

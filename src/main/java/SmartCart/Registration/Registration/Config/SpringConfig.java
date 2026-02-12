@@ -5,8 +5,11 @@ import SmartCart.Registration.Registration.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -20,27 +23,32 @@ import java.net.http.HttpClient;
 @EnableWebSecurity
 public class SpringConfig {
 
-    @Autowired
-    private UserDetailServiceImpl userService;
+//    @Autowired
+//    private UserDetailServiceImpl userService;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http.authorizeHttpRequests(request-> request
-                .requestMatchers("/master/**").permitAll()
-                .requestMatchers("/user/**").authenticated().anyRequest().authenticated())
+        return http.authorizeHttpRequests(request -> request
+                        .requestMatchers("/master/**").permitAll()
+                        .requestMatchers("/user/**").authenticated().anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    private void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+    //    @Autowired
+//    private void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+//}
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) {
+        return authenticationConfiguration.getAuthenticationManager();
+
     }
 }
