@@ -3,6 +3,7 @@ package SmartCart.Registration.Registration.Entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Generated;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,20 +13,22 @@ import java.util.List;
 @Table(name = "MASTER")
 public class MasterEntity {
 
+    @Column(name = "SNO",length = 10)
+    private int Sno;
+
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @Column(name = "SMARTCARTID")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String smartCartId;
 
     @Column(name = "USERNAME")
-
     private String username;
 
     @Column(name = "PASSWORD")
     private String password;
 
     @Column(name = "ROLES")
-    private List<String> roles;
+    private String roles;
 
     @Column(name = "INSERT_TMSTMP")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -35,5 +38,7 @@ public class MasterEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime Update_tmstmp;
 
+    @OneToOne(mappedBy = "masterEntity", cascade = CascadeType.ALL)
+    private UserEntity userEntity;
 
 }

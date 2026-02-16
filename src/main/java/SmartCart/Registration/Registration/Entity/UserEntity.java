@@ -11,10 +11,15 @@ import java.time.LocalDateTime;
 @Table(name = "USER")
 public class UserEntity {
 
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "SMARTCARTID", referencedColumnName = "SMARTCARTID")
+    private MasterEntity masterEntity;
+
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @Column(name = "SMARTCARTID")
+    private String smartCartId;
 
     @Column(name = "FIRST_NAME")
     private String fstName;
@@ -41,6 +46,9 @@ public class UserEntity {
 
     @Column(name = "MOBILE")
     private String mobile;
+
+    @Column(name = "USERNAME")
+    private String username;
 
 
 }
