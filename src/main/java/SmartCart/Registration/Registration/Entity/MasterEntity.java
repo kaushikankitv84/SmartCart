@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name = "MASTER")
 public class MasterEntity {
 
-    @Column(name = "SNO",length = 10)
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SNO", unique = true, nullable = false)
     private int Sno;
 
     @Id

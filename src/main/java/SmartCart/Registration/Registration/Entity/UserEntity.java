@@ -47,8 +47,5 @@ public class UserEntity {
     @Column(name = "MOBILE")
     private String mobile;
 
-    @Column(name = "USERNAME")
-    private String username;
-
 
 }

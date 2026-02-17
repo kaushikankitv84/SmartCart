@@ -31,7 +31,9 @@ public class SpringConfig {
 
         return http.authorizeHttpRequests(request -> request
                         .requestMatchers("/master/**").permitAll()
-                        .requestMatchers("/user/**").authenticated().anyRequest().authenticated())
+                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
